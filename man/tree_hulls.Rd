@@ -45,6 +45,7 @@ sp::plot(convex_hulls)
 concave_hulls = tree_hulls(las, "concave")
 sp::plot(concave_hulls)
 }
+
 }
 \references{
 Park, J. S., & Oh, S. J. (2012). A new concave hull algorithm and concaveness measure

@@ -6,7 +6,7 @@
 #
 # COPYRIGHT:
 #
-# Copyright 2016-2018 Jean-Romain Roussel
+# Copyright 2018 Jean-Romain Roussel
 #
 # This file is part of rlas R package.
 #
@@ -61,54 +61,9 @@
 #' concave_hulls = tree_hulls(las, "concave")
 #' sp::plot(concave_hulls)
 #' }
+#'
 tree_hulls = function(las, type = c("convex", "concave"), concavity = 3, length_threshold = 0, field = "treeID")
 {
-  X <- Y <- tree <- NULL
-
   type = match.arg(type)
-
-  if (type == "convex")
-    dt = las@data[, stdtreehullconvex(X,Y, .GRP), by = field]
-  else
-    dt = las@data[, stdtreehullconcave(X,Y, .GRP, concavity, length_threshold), by = field]
-
-  data.table::setnames(dt, names(dt), c("tree", "poly"))
-  dt = dt[!is.na(tree)]
-
-  spoly = sp::SpatialPolygons(dt$poly)
-
-  for (i in 1:length(spoly)) spoly@polygons[[i]]@ID = as.character(i)
-
-  data = data.frame(dt[, 1])
-  spdf = sp::SpatialPolygonsDataFrame(spoly, data)
-  sp::proj4string(spdf)<-las@crs
-
-  return(spdf)
+  lasaggregatepolygons(las, type, concavity, length_threshold, field)
 }
-
-stdtreehullconvex = function(x,y, grp)
-{
-  if (length(x) < 4)
-    return(NULL)
-
-  i = grDevices::chull(x,y)
-  i = c(i, i[1])
-  P = cbind(x[i], y[i])
-  poly = sp::Polygon(P)
-  poly = sp::Polygons(list(poly), ID = grp)
-
-  list(poly = list(poly))
-}
-
-stdtreehullconcave = function(x,y, grp, concavity, length_threshold)
-{
-  if (length(x) < 4)
-    return(NULL)
-
-  P = concaveman::concaveman(cbind(x,y), concavity, length_threshold)
-  poly = sp::Polygon(P)
-  poly = sp::Polygons(list(poly), ID = grp)
-
-  list(poly = list(poly))
-}
-
