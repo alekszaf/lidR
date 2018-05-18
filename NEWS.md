@@ -3,6 +3,7 @@
 ### NEW FEATURE
 
 * New function `tree_hulls` that computes a convex or concave hull for each segmented tree.
+* New function `catalog_flighlines` that returns a `SpatialPolygonsDataFrame` of concave hull of the flighlines
 
 ## lidR v1.5.0 (2018-05-13)
 

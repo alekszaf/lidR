@@ -57,6 +57,7 @@ Collate:
     'RcppExports.R'
     'catalog_apply.r'
     'catalog_clip.r'
+    'catalog_flightlines.r'
     'catalog_index.r'
     'catalog_laxindex.r'
     'catalog_makecluster.r'
