@@ -120,7 +120,7 @@ grid_catalog <- function(catalog, grid_func, res, select = "*", filter = "", sta
   # ========================================
 
   buffer(catalog) <- buffer(catalog) + 0.1
-  clusters <- catalog_makecluster(catalog, resolution, start)
+  clusters <- catalog_makecluster(catalog, resolution, start, plot = FALSE)
   nclust <- length(clusters)
   if (ncores > nclust) ncores = nclust
 
