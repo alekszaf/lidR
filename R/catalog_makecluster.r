@@ -25,7 +25,7 @@
 #
 # ===============================================================================
 
-catalog_makecluster = function(ctg, res, start = c(0,0), plot = TRUE)
+catalog_makecluster = function(ctg, res, start = c(0,0), plot = FALSE)
 {
   xmin <- ymin <- xmax <- ymax <- 0
   buffer <- buffer(ctg)
